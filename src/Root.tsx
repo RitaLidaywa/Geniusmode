@@ -1,6 +1,7 @@
 import "./index.css";
 import { Composition } from "remotion";
 import { MyComposition } from "./Composition";
+import { TextAnimation } from "./TextAnimation";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -12,6 +13,14 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1280}
         height={720}
+      />
+      <Composition
+        id="TextAnimation"
+        component={TextAnimation}
+        durationInFrames={180}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );
