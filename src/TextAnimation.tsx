@@ -1,16 +1,30 @@
 import React, { useMemo } from "react";
 import {
   AbsoluteFill,
+  continueRender,
+  delayRender,
   interpolate,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { loadFont } from "@remotion/google-fonts/Fraunces";
+import { loadFont } from "@remotion/fonts";
 
-const { fontFamily } = loadFont("italic", {
-  weights: ["900"],
-});
+const fontFamily = "Fraunces";
+
+const waitForFont = delayRender("Loading Fraunces");
+loadFont({
+  family: fontFamily,
+  url: staticFile("fonts/Fraunces-Black-Italic.ttf"),
+  weight: "900",
+  style: "italic",
+})
+  .then(() => continueRender(waitForFont))
+  .catch((err) => {
+    console.error("Failed to load font", err);
+    continueRender(waitForFont);
+  });
 
 const DAISY = "#FFFAE5";
 const DOT = "#F0ECCD";
