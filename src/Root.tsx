@@ -8,6 +8,7 @@ import { ClaudeInterface } from "./ClaudeInterface";
 import { ContentVelocity } from "./ContentVelocity";
 import { CompressedTime } from "./CompressedTime";
 import { StudioCTA_Final } from "./StudioCTA_Final";
+import { StudioTomatoPointer } from "./StudioTomatoPointer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -72,6 +73,14 @@ export const RemotionRoot: React.FC = () => {
         id="StudioCTAFinal"
         component={StudioCTA_Final}
         durationInFrames={480}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="StudioTomatoPointer"
+        component={StudioTomatoPointer}
+        durationInFrames={150}
         fps={30}
         width={1080}
         height={1920}
