@@ -3,6 +3,7 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 const DAISY = "#FFFAE5";
 const INK = "#1A1A2E";
 const COBALT = "#1C358C";
+const TOMATO = "#E74F35";
 
 const SPRING_CONFIG = { stiffness: 60, damping: 20 };
 
@@ -37,7 +38,7 @@ const ChaosLines: React.FC<{ frameForChaos: number }> = ({ frameForChaos }) => {
     const y2 = CENTER.y + Math.sin(angle) * (radius + length);
 
     const color = i % 2 === 0 ? COBALT : INK;
-    const opacity = 0.22 + 0.18 * pseudo(i * 3.1);
+    const opacity = 0.55 + 0.4 * pseudo(i * 3.1);
 
     return { x1, y1, x2, y2, color, opacity, key: i };
   });
@@ -60,7 +61,7 @@ const ChaosLines: React.FC<{ frameForChaos: number }> = ({ frameForChaos }) => {
         top: 0,
         width: 1080,
         height: 1920,
-        filter: "blur(2.5px)",
+        filter: "blur(1.2px)",
       }}
       viewBox="0 0 1080 1920"
     >
@@ -72,13 +73,13 @@ const ChaosLines: React.FC<{ frameForChaos: number }> = ({ frameForChaos }) => {
           x2={l.x2}
           y2={l.y2}
           stroke={l.color}
-          strokeWidth={3}
+          strokeWidth={5.5}
           strokeLinecap="round"
           opacity={l.opacity}
         />
       ))}
       {dots.map((d) => (
-        <circle key={d.key} cx={d.x} cy={d.y} r={2.4} fill={INK} opacity={d.flicker * 0.4} />
+        <circle key={d.key} cx={d.x} cy={d.y} r={4} fill={INK} opacity={d.flicker * 0.7} />
       ))}
     </svg>
   );
@@ -93,7 +94,7 @@ const SweepLens: React.FC<{ frame: number }> = ({ frame }) => {
   const ringOpacity = interpolate(
     frame,
     [CHAOS_END, CHAOS_END + 4, SWEEP_END, SWEEP_END + 14],
-    [0, 0.5, 0.5, 0],
+    [0, 0.9, 0.9, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
@@ -111,7 +112,7 @@ const SweepLens: React.FC<{ frame: number }> = ({ frame }) => {
           width: 1000,
           height: 1000,
           borderRadius: "50%",
-          border: `1px solid ${INK}`,
+          border: `3px solid ${COBALT}`,
           opacity: ringOpacity,
           transform: "translate(-50%, -50%)",
         }}
@@ -120,15 +121,23 @@ const SweepLens: React.FC<{ frame: number }> = ({ frame }) => {
         style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, overflow: "visible" }}
         viewBox="0 0 1080 1920"
       >
+        <path
+          d={`M ${CENTER.x} ${CENTER.y} L ${CENTER.x} ${CENTER.y - 500} A 500 500 0 ${
+            sweepAngle > 180 ? 1 : 0
+          } 1 ${handX} ${handY} Z`}
+          fill={TOMATO}
+          opacity={ringOpacity * 0.2}
+        />
         <line
           x1={CENTER.x}
           y1={CENTER.y}
           x2={handX}
           y2={handY}
-          stroke={COBALT}
-          strokeWidth={3}
+          stroke={TOMATO}
+          strokeWidth={9}
           strokeLinecap="round"
           opacity={ringOpacity}
+          style={{ filter: `drop-shadow(0 0 14px ${TOMATO}aa)` }}
         />
       </svg>
     </>
@@ -193,14 +202,16 @@ const TextLine: React.FC<{ startFrame: number; y: number; text: string }> = ({
     <div
       style={{
         position: "absolute",
-        left: 60,
-        right: 60,
+        left: 40,
+        right: 40,
         top: y,
         textAlign: "center",
         opacity,
         transform: `translateY(${translateY}px)`,
         fontFamily: "'Times New Roman', Times, serif",
-        fontSize: 44,
+        fontSize: 62,
+        fontWeight: "bold",
+        letterSpacing: 0.5,
         color: INK,
       }}
     >
@@ -248,8 +259,8 @@ export const CompressedTime: React.FC = () => {
 
       <GlassObject appear={glassAppear} />
 
-      <TextLine startFrame={TEXT1_START} y={1320} text="Spend less time deciding," />
-      <TextLine startFrame={TEXT2_START} y={1390} text="More time creating." />
+      <TextLine startFrame={TEXT1_START} y={1290} text="Spend less time deciding," />
+      <TextLine startFrame={TEXT2_START} y={1400} text="More time creating." />
     </AbsoluteFill>
   );
 };
