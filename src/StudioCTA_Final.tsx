@@ -102,71 +102,67 @@ const GlassBox: React.FC<{ scale: number; entryY: number; rotY: number; rotX: nu
 };
 
 // ---------------------------------------------------------------------------
-// Phase B — stylized glass hand pushing the box
+// Phase B — cursor pushing the box
 // ---------------------------------------------------------------------------
 
-const FingerCapsule: React.FC<{ w: number; h: number; rotate: number; originX: number }> = ({
-  w,
-  h,
-  rotate,
-  originX,
-}) => (
-  <div
-    style={{
-      position: "absolute",
-      bottom: "62%",
-      left: originX,
-      width: w,
-      height: h,
-      borderRadius: w / 2,
-      transform: `rotate(${rotate}deg)`,
-      transformOrigin: "bottom center",
-      ...glassPanel("#2A44A0f0"),
-    }}
-  />
-);
-
-const GlassHand: React.FC<{ x: number; y: number; rotate: number; opacity: number }> = ({
+const CursorArrow: React.FC<{ x: number; y: number; opacity: number; scale?: number }> = ({
   x,
   y,
-  rotate,
   opacity,
+  scale = 1,
+}) => (
+  <svg
+    style={{
+      position: "absolute",
+      left: x,
+      top: y,
+      opacity,
+      transform: `scale(${scale})`,
+      transformOrigin: "top left",
+      filter: "drop-shadow(0 12px 18px rgba(26,26,46,0.4))",
+    }}
+    width={64}
+    height={64}
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M4 2 L4 19.5 L8.2 15.6 L11 21.8 L13.8 20.5 L11 14.4 L17.5 14.4 Z"
+      fill={INK}
+      stroke={WHITE}
+      strokeWidth={1}
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const ClickRipple: React.FC<{ x: number; y: number; frame: number; triggerFrame: number }> = ({
+  x,
+  y,
+  frame,
+  triggerFrame,
 }) => {
+  const scale = lin(frame, [triggerFrame, triggerFrame + 26], [0.2, 2.4]);
+  const opacity = interpolate(
+    frame,
+    [triggerFrame, triggerFrame + 6, triggerFrame + 26],
+    [0, 0.5, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+
   return (
     <div
       style={{
         position: "absolute",
         left: x,
         top: y,
-        width: 220,
-        height: 320,
+        width: 70,
+        height: 70,
+        borderRadius: "50%",
+        border: `3px solid ${COBALT}`,
+        transform: `translate(-50%, -50%) scale(${scale})`,
         opacity,
-        transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
       }}
-    >
-      {/* palm */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: "50%",
-          width: 150,
-          height: 190,
-          borderRadius: 46,
-          transform: "translateX(-50%)",
-          ...glassPanel("#22337af0"),
-        }}
-      >
-        <Specular />
-      </div>
-      {/* thumb */}
-      <FingerCapsule w={38} h={95} rotate={-55} originX={4} />
-      {/* fingers */}
-      <FingerCapsule w={34} h={150} rotate={-16} originX={40} />
-      <FingerCapsule w={36} h={168} rotate={-4} originX={80} />
-      <FingerCapsule w={34} h={160} rotate={10} originX={120} />
-      <FingerCapsule w={30} h={130} rotate={24} originX={155} />
-    </div>
+    />
   );
 };
 
@@ -280,46 +276,17 @@ const BLOCK_H = 96;
 const BLOCK_GAP = 14;
 const BLOCK_START = { x: 150, y: 1150 };
 
-const AbstractFigure: React.FC<{ frame: number }> = ({ frame }) => {
-  const bob = Math.sin(frame * 0.05) * 6;
-  return (
-    <div style={{ position: "absolute", left: 850, top: 700 + bob }}>
-      <div
-        style={{
-          width: 70,
-          height: 70,
-          borderRadius: "50%",
-          background: COBALT,
-        }}
-      />
-      <div
-        style={{
-          width: 90,
-          height: 130,
-          marginTop: 8,
-          marginLeft: -10,
-          borderRadius: 20,
-          background: INK,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 90,
-          left: -60,
-          width: 70,
-          height: 16,
-          borderRadius: 8,
-          background: INK,
-          transform: "rotate(18deg)",
-          transformOrigin: "right center",
-        }}
-      />
-    </div>
-  );
-};
-
 const DeconstructionScene: React.FC<{ opacity: number; frame: number }> = ({ opacity, frame }) => {
+  const cursorEnter = lin(frame, [C_END + 5, C_END + 25], [0, 1]);
+  const cursorX = lin(cursorEnter, [0, 1], [1300, 640]);
+  const cursorY = lin(cursorEnter, [0, 1], [500, 760]);
+  const cursorBob = Math.sin(frame * 0.05) * 6;
+  const cursorPress = interpolate(
+    frame,
+    [C_END + 22, C_END + 28, C_END + 34],
+    [1, 0.8, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
   const cells = Array.from({ length: GRID_COLS * GRID_ROWS }).map((_, i) => {
     const col = i % GRID_COLS;
     const row = Math.floor(i / GRID_COLS);
@@ -347,7 +314,8 @@ const DeconstructionScene: React.FC<{ opacity: number; frame: number }> = ({ opa
 
   return (
     <AbsoluteFill style={{ opacity, backgroundColor: WHITE }}>
-      <AbstractFigure frame={frame} />
+      <ClickRipple x={cursorX} y={cursorY + cursorBob} frame={frame} triggerFrame={C_END + 22} />
+      <CursorArrow x={cursorX} y={cursorY + cursorBob} opacity={cursorEnter} scale={cursorPress} />
 
       <div
         style={{
@@ -394,24 +362,30 @@ export const StudioCTA_Final: React.FC = () => {
   const boxScaleA = lin(boxEntryProgress, [0, 1], [0.5, 1]);
   const constantSpin = frame * 0.25;
 
-  // Phase B: hand push
+  // Phase B: cursor push
   const boxPushScale = lin(frame, [A_END + 20, A_END + 55], [1, 1.32]);
   const boxScale = frame < A_END ? boxScaleA : boxPushScale;
 
-  const handEnter = lin(frame, [A_END, A_END + 35], [0, 1]);
-  const handExit = lin(frame, [B_END - 45, B_END - 10], [0, 1]);
-  const handX = lin(handEnter, [0, 1], [1500, 760]);
-  const handY = lin(handEnter, [0, 1], [2200, 1000]);
-  const handExitX = lin(handExit, [0, 1], [760, 1500]);
-  const handExitY = lin(handExit, [0, 1], [1000, 2200]);
-  const handActiveX = frame < B_END - 45 ? handX : handExitX;
-  const handActiveY = frame < B_END - 45 ? handY : handExitY;
-  const handOpacity =
+  const cursorBEnter = lin(frame, [A_END, A_END + 35], [0, 1]);
+  const cursorBExit = lin(frame, [B_END - 45, B_END - 10], [0, 1]);
+  const cursorBX = lin(cursorBEnter, [0, 1], [1500, 700]);
+  const cursorBY = lin(cursorBEnter, [0, 1], [2200, 940]);
+  const cursorBExitX = lin(cursorBExit, [0, 1], [700, 1500]);
+  const cursorBExitY = lin(cursorBExit, [0, 1], [940, 2200]);
+  const cursorBActiveX = frame < B_END - 45 ? cursorBX : cursorBExitX;
+  const cursorBActiveY = frame < B_END - 45 ? cursorBY : cursorBExitY;
+  const cursorBOpacity =
     frame < A_END
       ? 0
       : frame < B_END - 45
-        ? handEnter
-        : 1 - handExit;
+        ? cursorBEnter
+        : 1 - cursorBExit;
+  const cursorBPress = interpolate(
+    frame,
+    [A_END + 28, A_END + 36, A_END + 44],
+    [1, 0.8, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
   // scene A/B combined opacity (fades out into UI mimic)
   const sceneABOpacity = 1 - lin(frame, [C_END - 130, C_END - 110], [0, 1]);
@@ -426,7 +400,8 @@ export const StudioCTA_Final: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: DAISY }}>
       <AbsoluteFill style={{ opacity: sceneABOpacity }}>
         <GlassBox scale={boxScale} entryY={boxEntryY} rotY={constantSpin} rotX={12} />
-        <GlassHand x={handActiveX} y={handActiveY} rotate={-35} opacity={handOpacity} />
+        <ClickRipple x={cursorBActiveX} y={cursorBActiveY} frame={frame} triggerFrame={A_END + 30} />
+        <CursorArrow x={cursorBActiveX} y={cursorBActiveY} opacity={cursorBOpacity} scale={cursorBPress} />
       </AbsoluteFill>
 
       <UIScene opacity={uiOpacity} frame={frame} />
