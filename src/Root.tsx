@@ -1,6 +1,7 @@
 import "./index.css";
 import { Composition } from "remotion";
 import { MyComposition } from "./Composition";
+import { ResearchValidation } from "./ResearchValidation";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -9,6 +10,14 @@ export const RemotionRoot: React.FC = () => {
         id="MyComp"
         component={MyComposition}
         durationInFrames={60}
+        fps={30}
+        width={1280}
+        height={720}
+      />
+      <Composition
+        id="ResearchValidation"
+        component={ResearchValidation}
+        durationInFrames={183}
         fps={30}
         width={1280}
         height={720}
