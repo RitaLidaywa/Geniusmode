@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { MyComposition } from "./Composition";
 import { ResearchValidation } from "./ResearchValidation";
 import { IdeaWorkflow } from "./IdeaWorkflow";
+import { IdeaPrism } from "./IdeaPrism";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -27,6 +28,14 @@ export const RemotionRoot: React.FC = () => {
         id="IdeaWorkflow"
         component={IdeaWorkflow}
         durationInFrames={183}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="IdeaPrism"
+        component={IdeaPrism}
+        durationInFrames={81}
         fps={30}
         width={1080}
         height={1920}
