@@ -6,6 +6,10 @@ const COBALT = "#1C358C";
 const TOMATO = "#E74F35";
 
 const SPRING_CONFIG = { stiffness: 60, damping: 20 };
+const POP_CONFIG = { stiffness: 300, damping: 12 };
+
+const TOPIC_LABELS = ["Hook", "Trend", "Story", "Tips", "Bonus"];
+const TOPIC_FONT_SIZES = [46, 40, 34, 29, 24];
 
 const BLOOM_END = 90; // 3s
 const METER_END = 195; // 6.5s
@@ -87,6 +91,9 @@ const RankSphere: React.FC<{ index: number; bloom: number; reorder: number }> = 
   bloom,
   reorder,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
   const bloomPos = BLOOM_OFFSETS[index];
   const rank = RANKS[index];
 
@@ -101,6 +108,11 @@ const RankSphere: React.FC<{ index: number; bloom: number; reorder: number }> = 
   const opacity = interpolate(bloom, [0, 0.12], [0, 1], { extrapolateRight: "clamp" });
   const glow = index === 0 ? interpolate(reorder, [0.55, 1], [0, 1], { extrapolateLeft: "clamp" }) : 0;
 
+  const popStart = 16 + index * 8;
+  const pop = spring({ frame: Math.max(frame - popStart, 0), fps, config: POP_CONFIG });
+  const popScale = interpolate(pop, [0, 1], [0, 1]);
+  const popOpacity = interpolate(pop, [0, 1], [0, 1]);
+
   return (
     <div
       style={{
@@ -113,7 +125,32 @@ const RankSphere: React.FC<{ index: number; bloom: number; reorder: number }> = 
         transform: "translate(-50%, -50%)",
         border: index === 0 ? `1px solid ${TOMATO}88` : sphereStyle(0).border,
       }}
-    />
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: `scale(${popScale})`,
+          opacity: popOpacity,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Times New Roman', Times, serif",
+            fontWeight: "bold",
+            fontSize: TOPIC_FONT_SIZES[index],
+            color: INK,
+            whiteSpace: "nowrap",
+            textShadow: "0 0 10px rgba(255,255,255,0.85), 0 0 3px rgba(255,255,255,0.9)",
+          }}
+        >
+          {TOPIC_LABELS[index]}
+        </span>
+      </div>
+    </div>
   );
 };
 
