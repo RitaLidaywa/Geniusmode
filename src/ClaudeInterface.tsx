@@ -55,7 +55,7 @@ const Sidebar: React.FC = () => (
 );
 
 const PaperAirplaneIcon: React.FC<{ color: string }> = ({ color }) => (
-  <svg width={26} height={26} viewBox="0 0 24 24" fill="none">
+  <svg width={30} height={30} viewBox="0 0 24 24" fill="none">
     <path d="M3 11.5L20.5 3.5L14 20.5L11 13.5L3 11.5Z" fill={color} />
   </svg>
 );
@@ -94,7 +94,7 @@ const UserBubble: React.FC = () => {
         <span
           style={{
             fontFamily: "'Times New Roman', Times, serif",
-            fontSize: 22,
+            fontSize: 30,
             lineHeight: 1.4,
             color: INK,
           }}
@@ -158,7 +158,7 @@ const ResponseTable: React.FC = () => {
 
   const textStyle: React.CSSProperties = {
     fontFamily: "'Times New Roman', Times, serif",
-    fontSize: 20,
+    fontSize: 28,
     color: INK,
   };
 
@@ -181,7 +181,7 @@ const ResponseTable: React.FC = () => {
           paddingBottom: 16,
           marginBottom: 10,
           ...textStyle,
-          fontSize: 22,
+          fontSize: 30,
           fontWeight: "bold",
         }}
       >
@@ -251,8 +251,8 @@ const InputPill: React.FC = () => {
         left: CONTENT_LEFT,
         right: CONTENT_RIGHT,
         bottom: 90,
-        height: 96,
-        borderRadius: 48,
+        height: 108,
+        borderRadius: 54,
         background: "#FFFFFF",
         border: "1px solid rgba(26,26,46,0.14)",
         boxShadow: "0 10px 24px rgba(26,26,46,0.08)",
@@ -265,7 +265,7 @@ const InputPill: React.FC = () => {
         style={{
           flex: 1,
           fontFamily: "'Times New Roman', Times, serif",
-          fontSize: 22,
+          fontSize: 30,
           color: INK,
           whiteSpace: "nowrap",
           overflow: "hidden",
@@ -276,9 +276,9 @@ const InputPill: React.FC = () => {
       </div>
       <div
         style={{
-          width: 60,
-          height: 60,
-          minWidth: 60,
+          width: 68,
+          height: 68,
+          minWidth: 68,
           borderRadius: "50%",
           background: active ? INK : "rgba(26,26,46,0.15)",
           display: "flex",
