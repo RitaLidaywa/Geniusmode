@@ -7,6 +7,7 @@ import { IdeaPrism } from "./IdeaPrism";
 import { ClaudeInterface } from "./ClaudeInterface";
 import { ContentVelocity } from "./ContentVelocity";
 import { CompressedTime } from "./CompressedTime";
+import { StudioCTA_Final } from "./StudioCTA_Final";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -63,6 +64,14 @@ export const RemotionRoot: React.FC = () => {
         id="CompressedTime"
         component={CompressedTime}
         durationInFrames={150}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="StudioCTAFinal"
+        component={StudioCTA_Final}
+        durationInFrames={480}
         fps={30}
         width={1080}
         height={1920}
