@@ -18,11 +18,33 @@ const TYPE_END = 90; // 3s
 const SEND_CLICK = 90;
 const TABLE_START = 180; // 6s
 
+const INTRO_TEXT = "Here are your top 3 trending topics this week:";
+const SUMMARY_TEXT =
+  "Recommendation: prioritize the AI Tools angle first — it has the strongest momentum and the lowest production overhead.";
+
 const TABLE_ROWS = [
-  { topic: "AI Tools Roundup", views: "482K", trend: "▲ 38%" },
-  { topic: "Studio Setup Tips", views: "310K", trend: "▲ 22%" },
-  { topic: "Faceless Automation", views: "275K", trend: "▲ 19%" },
+  {
+    topic: "AI Tools Roundup",
+    views: "482K",
+    trend: "▲ 38%",
+    note: "Search interest is spiking as creators rush to cover new model releases — a quick-turnaround format with low editing overhead.",
+  },
+  {
+    topic: "Studio Setup Tips",
+    views: "310K",
+    trend: "▲ 22%",
+    note: "Viewers are upgrading gear ahead of Q3, fueling demand for setup, lighting, and workflow guides.",
+  },
+  {
+    topic: "Faceless Automation",
+    views: "275K",
+    trend: "▲ 19%",
+    note: "Lower production barriers are pulling in creators building automated, faceless channels at scale.",
+  },
 ];
+
+const ROW_STAGGER = 34;
+const SUMMARY_START = TABLE_START + TABLE_ROWS.length * ROW_STAGGER + 10;
 
 const Sidebar: React.FC = () => (
   <div
@@ -162,6 +184,11 @@ const ResponseTable: React.FC = () => {
     color: INK,
   };
 
+  const summaryLocalFrame = Math.max(frame - SUMMARY_START, 0);
+  const summaryAppear = spring({ frame: summaryLocalFrame, fps, config: SPRING_CONFIG });
+  const summaryOpacity = interpolate(summaryAppear, [0, 1], [0, 1]);
+  const summaryTranslateY = interpolate(summaryAppear, [0, 1], [20, 0]);
+
   return (
     <div
       style={{
@@ -175,11 +202,22 @@ const ResponseTable: React.FC = () => {
     >
       <div
         style={{
+          ...textStyle,
+          fontSize: 28,
+          marginBottom: 24,
+          lineHeight: 1.4,
+        }}
+      >
+        {INTRO_TEXT}
+      </div>
+
+      <div
+        style={{
           display: "grid",
           gridTemplateColumns: "1.8fr 0.8fr 0.8fr",
           borderBottom: `2px solid ${INK}`,
           paddingBottom: 16,
-          marginBottom: 10,
+          marginBottom: 14,
           ...textStyle,
           fontSize: 30,
           fontWeight: "bold",
@@ -191,7 +229,7 @@ const ResponseTable: React.FC = () => {
       </div>
 
       {TABLE_ROWS.map((row, i) => {
-        const rowStart = TABLE_START + i * 20;
+        const rowStart = TABLE_START + i * ROW_STAGGER;
         const rowLocalFrame = Math.max(frame - rowStart, 0);
         const rowAppear = spring({ frame: rowLocalFrame, fps, config: SPRING_CONFIG });
         const rowOpacity = interpolate(rowAppear, [0, 1], [0, 1]);
@@ -202,24 +240,55 @@ const ResponseTable: React.FC = () => {
           <div
             key={row.topic}
             style={{
-              display: "grid",
-              gridTemplateColumns: "1.8fr 0.8fr 0.8fr",
               padding: "16px 18px",
-              marginBottom: 8,
+              marginBottom: 20,
               borderRadius: 14,
               opacity: rowOpacity,
               transform: `translateX(${rowTranslateX}px)`,
               borderLeft: isFirst ? `5px solid ${TOMATO}` : "5px solid transparent",
               background: isFirst ? `${TOMATO}17` : "transparent",
-              ...textStyle,
             }}
           >
-            <span>{row.topic}</span>
-            <span>{row.views}</span>
-            <span>{row.trend}</span>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.8fr 0.8fr 0.8fr",
+                ...textStyle,
+              }}
+            >
+              <span>{row.topic}</span>
+              <span>{row.views}</span>
+              <span>{row.trend}</span>
+            </div>
+            <div
+              style={{
+                ...textStyle,
+                fontSize: 22,
+                lineHeight: 1.4,
+                opacity: 0.78,
+                marginTop: 8,
+                paddingRight: 12,
+              }}
+            >
+              {row.note}
+            </div>
           </div>
         );
       })}
+
+      <div
+        style={{
+          ...textStyle,
+          fontSize: 26,
+          fontWeight: "bold",
+          lineHeight: 1.4,
+          marginTop: 16,
+          opacity: summaryOpacity,
+          transform: `translateY(${summaryTranslateY}px)`,
+        }}
+      >
+        {SUMMARY_TEXT}
+      </div>
     </div>
   );
 };
