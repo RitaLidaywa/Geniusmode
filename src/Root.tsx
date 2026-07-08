@@ -6,6 +6,7 @@ import { IdeaWorkflow } from "./IdeaWorkflow";
 import { IdeaPrism } from "./IdeaPrism";
 import { ClaudeInterface } from "./ClaudeInterface";
 import { ContentVelocity } from "./ContentVelocity";
+import { CompressedTime } from "./CompressedTime";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -54,6 +55,14 @@ export const RemotionRoot: React.FC = () => {
         id="ContentVelocity"
         component={ContentVelocity}
         durationInFrames={318}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="CompressedTime"
+        component={CompressedTime}
+        durationInFrames={150}
         fps={30}
         width={1080}
         height={1920}
