@@ -5,6 +5,7 @@ import { ResearchValidation } from "./ResearchValidation";
 import { IdeaWorkflow } from "./IdeaWorkflow";
 import { IdeaPrism } from "./IdeaPrism";
 import { ClaudeInterface } from "./ClaudeInterface";
+import { ContentVelocity } from "./ContentVelocity";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -44,6 +45,14 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="ClaudeInterface"
         component={ClaudeInterface}
+        durationInFrames={318}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="ContentVelocity"
+        component={ContentVelocity}
         durationInFrames={318}
         fps={30}
         width={1080}
