@@ -9,6 +9,7 @@ import { ContentVelocity } from "./ContentVelocity";
 import { CompressedTime } from "./CompressedTime";
 import { StudioCTA_Final } from "./StudioCTA_Final";
 import { StudioTomatoPointer } from "./StudioTomatoPointer";
+import { SystemEngineCTA } from "./SystemEngineCTA";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -81,6 +82,14 @@ export const RemotionRoot: React.FC = () => {
         id="StudioTomatoPointer"
         component={StudioTomatoPointer}
         durationInFrames={150}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SystemEngineCTA"
+        component={SystemEngineCTA}
+        durationInFrames={480}
         fps={30}
         width={1080}
         height={1920}
