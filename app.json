@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "I miss them, but...",
+    "slug": "i-miss-them-but",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "imissthembut",
+    "primaryColor": "#8C6E63",
+    "backgroundColor": "#FBF7F4",
+    "ios": {
+      "bundleIdentifier": "com.geniusmode.imissthembut",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Face ID is used to lock your private journal and mood entries so only you can open the app.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.geniusmode.imissthembut",
+      "permissions": ["USE_BIOMETRIC", "USE_FINGERPRINT"],
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Face ID is used to lock your private journal and mood entries so only you can open the app."
+        }
+      ]
+    ]
+  }
+}
