@@ -32,38 +32,8 @@
     circles.forEach(function (c) { c.classList.add('in-view'); });
   }
 
-  /* ===== services: tap/click to toggle info panels (mobile tap, desktop keyboard/click) ===== */
-  document.querySelectorAll('.info-toggle').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var panel = btn.parentElement.querySelector('.info-panel');
-      var isOpen = panel.classList.contains('is-open');
-
-      // close any other open panels
-      document.querySelectorAll('.info-panel.is-open').forEach(function (p) {
-        if (p !== panel) {
-          p.classList.remove('is-open');
-          var otherBtn = p.parentElement.querySelector('.info-toggle');
-          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      panel.classList.toggle('is-open', !isOpen);
-      btn.setAttribute('aria-expanded', String(!isOpen));
-    });
-  });
-
-  /* ===== geo-based pricing ===== */
-  var priceEls = document.querySelectorAll('[data-ksh]');
-
-  function applyCurrency(isKenya) {
-    priceEls.forEach(function (el) {
-      var val = isKenya ? el.getAttribute('data-ksh') : el.getAttribute('data-usd');
-      el.textContent = val || el.getAttribute('data-usd') || '';
-    });
-  }
-
-  // default to USD immediately so nothing is ever blank while the fetch resolves
-  applyCurrency(false);
+  /* ===== geo-based pricing: resolved once, reused by the modal whenever it opens ===== */
+  var isKenya = false; // default to USD until/unless the lookup says otherwise
 
   fetch('https://get.geojs.io/v1/ip/country.json')
     .then(function (res) {
@@ -71,12 +41,54 @@
       return res.json();
     })
     .then(function (data) {
-      var isKenya = data && data.country === 'KE';
-      applyCurrency(isKenya);
+      isKenya = !!(data && data.country === 'KE');
     })
     .catch(function () {
-      applyCurrency(false); // default to USD on failure/block
+      isKenya = false; // default to USD on failure/block
     });
+
+  /* ===== services: click/tap opens a shared modal (works identically on desktop and mobile) ===== */
+  var modalBackdrop = document.getElementById('modalBackdrop');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalMoment = document.getElementById('modalMoment');
+  var modalIncludes = document.getElementById('modalIncludes');
+  var modalPriceLabel = document.getElementById('modalPriceLabel');
+  var modalPrice = document.getElementById('modalPrice');
+  var modalClose = document.getElementById('modalClose');
+  var lastFocused = null;
+
+  function openModal(btn) {
+    modalTitle.textContent = btn.getAttribute('data-title') || '';
+    modalMoment.textContent = '"' + (btn.getAttribute('data-moment') || '') + '"';
+    modalIncludes.textContent = btn.getAttribute('data-includes') || '';
+    modalPriceLabel.textContent = btn.getAttribute('data-price-label') || '';
+    modalPrice.textContent = isKenya
+      ? btn.getAttribute('data-price-ksh')
+      : btn.getAttribute('data-price-usd');
+    lastFocused = btn;
+    modalBackdrop.classList.add('is-open');
+    modalClose.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  if (modalBackdrop) {
+    document.querySelectorAll('.info-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () { openModal(btn); });
+    });
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', function (e) {
+      if (e.target === modalBackdrop) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modalBackdrop.classList.contains('is-open')) closeModal();
+    });
+  }
 
   /* ===== contact form: friendly inline confirmation on Netlify submit ===== */
   var contactForm = document.getElementById('contactForm');

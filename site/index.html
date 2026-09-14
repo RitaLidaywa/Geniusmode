@@ -17,7 +17,6 @@
 <nav class="site-nav">
   <a href="#home" class="brand">
     <img src="assets/tiri-tiled-logo.svg" alt="tiri">
-    <span class="word">tiri</span>
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -67,12 +66,16 @@
           <div class="tagline">for the piece only you can say</div>
           <p>You have something that needs writing but cannot execute it. Articles, blog posts, product descriptions, ghostwritten pieces.</p>
         </div>
-        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
-        <div class="info-panel" role="region" aria-label="Prose by tiri details">
-          <div class="moment">"You have something that needs writing but cannot execute it."</div>
-          <div class="includes"><b>Includes</b>Articles, blog posts, product descriptions, ghostwritten pieces.</div>
-          <div class="price">From <b class="price-ksh" data-ksh="4.5 KSh/word" data-usd="$0.12–$0.15/word">…</b></div>
-        </div>
+        <button
+          class="info-toggle"
+          type="button"
+          data-title="Prose by tiri"
+          data-moment="You have something that needs writing but cannot execute it."
+          data-includes="Articles, blog posts, product descriptions, ghostwritten pieces."
+          data-price-label="From"
+          data-price-ksh="4.5 KSh/word"
+          data-price-usd="$0.12–$0.15/word"
+        >See what's included</button>
       </article>
 
       <article class="block-item" data-service="primer">
@@ -82,12 +85,16 @@
           <div class="tagline">for the thing you keep re-explaining</div>
           <p>I know exactly what I do and how I do it — I just can't get it into something structured that others can follow or learn from.</p>
         </div>
-        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
-        <div class="info-panel" role="region" aria-label="Primer by tiri details">
-          <div class="moment">"I know exactly what I do and how I do it — I just can't get it into something structured that others can follow or learn from."</div>
-          <div class="includes"><b>Includes</b>Course modules, training guides, curriculum.</div>
-          <div class="price">Base module <b class="price-ksh" data-ksh="12,000 KSh" data-usd="$250–$300">…</b> · 5-module package <b class="price-ksh" data-ksh="55,000 KSh" data-usd="$1,200">…</b></div>
-        </div>
+        <button
+          class="info-toggle"
+          type="button"
+          data-title="Primer by tiri"
+          data-moment="I know exactly what I do and how I do it — I just can't get it into something structured that others can follow or learn from."
+          data-includes="Course modules, training guides, curriculum."
+          data-price-label="Base module"
+          data-price-ksh="12,000 KSh · 5-module package 55,000 KSh"
+          data-price-usd="$250–$300 · 5-module package $1,200"
+        >See what's included</button>
       </article>
 
       <article class="block-item" data-service="paperwork">
@@ -97,17 +104,32 @@
           <div class="tagline">for the doc nobody wants to write</div>
           <p>You need a professional document and getting it wrong has real consequences. SLAs, contracts, letters, rate cards, tone of voice guides, brand identity docs, business starter packs.</p>
         </div>
-        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
-        <div class="info-panel" role="region" aria-label="Paperwork by tiri details">
-          <div class="moment">"You need a professional document and getting it wrong has real consequences."</div>
-          <div class="includes"><b>Includes</b>SLAs, contracts, letters, rate cards, tone of voice guides, brand identity docs, business starter packs.</div>
-          <div class="price">From <b class="price-ksh" data-ksh="1,000 KSh" data-usd="$80">…</b> per document</div>
-        </div>
+        <button
+          class="info-toggle"
+          type="button"
+          data-title="Paperwork by tiri"
+          data-moment="You need a professional document and getting it wrong has real consequences."
+          data-includes="SLAs, contracts, letters, rate cards, tone of voice guides, brand identity docs, business starter packs."
+          data-price-label="From"
+          data-price-ksh="1,000 KSh per document"
+          data-price-usd="$80 per document"
+        >See what's included</button>
       </article>
 
     </div>
   </div>
 </section>
+
+<!-- ===== shared service-details modal ===== -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-moment" id="modalMoment"></div>
+    <div class="modal-includes"><b>Includes</b><span id="modalIncludes"></span></div>
+    <div class="modal-price"><span id="modalPriceLabel"></span> <b id="modalPrice" class="price-ksh"></b></div>
+  </div>
+</div>
 
 <!-- ===== 3. PATA CREATIVE STUDIO ===== -->
 <section class="section-pad s-pata" id="pata">
