@@ -22,6 +22,33 @@
     }
   }
 
+  var RAY_COUNT = 8;
+
+  function buildRays(toggle) {
+    for (var i = 0; i < RAY_COUNT; i++) {
+      var ray = document.createElement('span');
+      ray.className = 'ray';
+      ray.style.setProperty('--angle', (i * (360 / RAY_COUNT)) + 'deg');
+      ray.style.setProperty('--i', i);
+      toggle.appendChild(ray);
+    }
+  }
+
+  function playBeam(toggle, direction) {
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    var beamClass = direction === 'light' ? 'beaming-out' : 'beaming-in';
+    toggle.classList.remove('beaming-out', 'beaming-in');
+    // Force reflow so the animation replays even if the same class was just used.
+    void toggle.offsetWidth;
+    toggle.classList.add(beamClass);
+    setTimeout(function () {
+      toggle.classList.remove(beamClass);
+    }, 900);
+  }
+
   function initTheme() {
     var root = document.documentElement;
     var toggle = document.querySelector('.theme-toggle');
@@ -31,11 +58,14 @@
     root.setAttribute('data-theme', theme);
 
     if (toggle) {
+      buildRays(toggle);
+
       toggle.addEventListener('click', function () {
         var current = root.getAttribute('data-theme');
         var next = current === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-theme', next);
         writeStoredTheme(next);
+        playBeam(toggle, next);
       });
     }
   }
