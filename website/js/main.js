@@ -24,6 +24,43 @@
     }
   }
 
+  /* ---------- Nav dropdowns (Services, Pata Studio) ---------- */
+  function initDropdowns() {
+    var items = document.querySelectorAll('.nav-item.has-dropdown');
+    if (!items.length) return;
+
+    function closeAll(except) {
+      items.forEach(function (item) {
+        if (item !== except) {
+          item.classList.remove('open');
+          var toggle = item.querySelector('.dropdown-toggle');
+          if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    items.forEach(function (item) {
+      var toggle = item.querySelector('.dropdown-toggle');
+      if (!toggle) return;
+
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = item.classList.contains('open');
+        closeAll(item);
+        item.classList.toggle('open', !isOpen);
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+
+    document.addEventListener('click', function () {
+      closeAll(null);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAll(null);
+    });
+  }
+
   /* ---------- Mobile hamburger menu ---------- */
   function initHamburger() {
     var hamburger = document.querySelector('.hamburger');
@@ -283,6 +320,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
+    initDropdowns();
     initHamburger();
     initTypewriters();
     initFadeIn();
