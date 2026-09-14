@@ -436,8 +436,25 @@ html[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.5rem;
   margin-bottom: 22px;
+}
+
+.icon-prose {
+  background: #012F25;
+  color: #F5F0E8;
+}
+
+.icon-primer {
+  background: #FC7D14;
+  color: #012F25;
+}
+
+.icon-paperwork {
+  background: #FAF2A0;
+  color: #012F25;
 }
 
 .service-card h3 {
