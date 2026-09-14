@@ -123,72 +123,13 @@ section {
 }
 
 .btn-primary {
-  position: relative;
   background: var(--accent);
   color: #FFFFFF;
   border-radius: 32px 32px 12px 12px;
-  margin: 0 14px;
-}
-
-.btn-primary::before,
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  background: var(--accent);
-  transition: transform var(--transition), background var(--transition);
-}
-
-.btn-primary::before {
-  left: -13px;
-  top: 38%;
-  width: 15px;
-  height: 22px;
-  border-radius: 11px 0 0 11px;
-  border-top: 7px solid var(--accent);
-}
-
-.btn-primary::after {
-  right: -13px;
-  top: 22%;
-  width: 15px;
-  height: 30px;
-  border-radius: 0 11px 11px 0;
-  border-top: 7px solid var(--accent);
 }
 
 .btn-primary:hover {
   background: #e06e0d;
-}
-
-.btn-primary:hover::before,
-.btn-primary:hover::after {
-  background: #e06e0d;
-}
-
-.btn-primary:hover::before {
-  transform: translateX(-2px);
-}
-
-.btn-primary:hover::after {
-  transform: translateX(2px);
-}
-
-.btn-primary.btn-small {
-  margin: 0 10px;
-}
-
-.btn-primary.btn-small::before {
-  left: -9px;
-  width: 10px;
-  height: 15px;
-  border-top-width: 5px;
-}
-
-.btn-primary.btn-small::after {
-  right: -9px;
-  width: 10px;
-  height: 19px;
-  border-top-width: 5px;
 }
 
 .btn-outline {
@@ -435,7 +376,7 @@ html[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
 
 .hero-cta {
   display: flex;
-  gap: 8px;
+  gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -1010,7 +951,7 @@ footer {
 }
 
 .sidebar-card .btn {
-  width: calc(100% - 28px);
+  width: 100%;
   margin-top: 24px;
 }
 

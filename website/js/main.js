@@ -6,12 +6,28 @@
   'use strict';
 
   /* ---------- Theme toggle ---------- */
+  function readStoredTheme() {
+    try {
+      return localStorage.getItem('tiri-theme');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeStoredTheme(theme) {
+    try {
+      localStorage.setItem('tiri-theme', theme);
+    } catch (e) {
+      /* storage unavailable (private mode, sandboxed preview, etc.) */
+    }
+  }
+
   function initTheme() {
     var root = document.documentElement;
     var toggle = document.querySelector('.theme-toggle');
-    var stored = localStorage.getItem('tiri-theme');
-    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var theme = stored || (prefersDark ? 'dark' : 'light');
+    // Light is the default brand experience; dark mode is opt-in only,
+    // so this never falls back to the OS/browser color-scheme preference.
+    var theme = readStoredTheme() === 'dark' ? 'dark' : 'light';
     root.setAttribute('data-theme', theme);
 
     if (toggle) {
@@ -19,7 +35,7 @@
         var current = root.getAttribute('data-theme');
         var next = current === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-theme', next);
-        localStorage.setItem('tiri-theme', next);
+        writeStoredTheme(next);
       });
     }
   }
