@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tiri — Prose, Primer and Paperwork by tiri</title>
+<meta name="description" content="Tiri is the writer and systems partner behind the scenes. Prose, Primer and Paperwork by tiri, plus Pata Creative Studio's digital products.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,480;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/tiri-tiled-logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="#home" class="brand">
+    <img src="assets/tiri-tiled-logo.svg" alt="tiri">
+    <span class="word">tiri</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#pata">Pata</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#thoughts">Thoughts</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ===== 1. HERO ===== -->
+<header class="s-hero" id="home">
+  <div class="blob"></div>
+  <div class="motif-circle" data-size="90" style="width:90px; height:90px; top:40px; left:6%; background:var(--orange); opacity:0.85;"></div>
+  <div class="motif-circle" data-size="46" style="width:46px; height:46px; bottom:30px; left:14%; background:var(--forest); opacity:0.1;"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow mono">Think. Try. Teach.</div>
+    <h1>The writer and systems partner behind the scenes.</h1>
+    <p class="sub">Prose, Primer and Paperwork by tiri — three ways to hand off the words to someone who'll do it properly.</p>
+    <div class="actions">
+      <a class="btn-primary" href="#services">Start here</a>
+      <a class="btn-ghost" href="#services">See services</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 2. SERVICES ===== -->
+<section class="section-pad" id="services">
+  <div class="motif-circle" style="width:64px; height:64px; top:30px; right:-20px; background:var(--orange); opacity:0.85;"></div>
+  <div class="motif-circle" style="width:150px; height:150px; bottom:-60px; left:-70px; background:var(--forest); opacity:0.08;"></div>
+  <div class="wrap">
+    <div class="section-eyebrow">01 — SERVICES</div>
+    <h2 class="section-h">Three ways to hand off the words</h2>
+    <p class="section-lede">All three sit visible, stacked below. Hover a block on desktop, or tap "See what's included" on mobile, for what's included and pricing.</p>
+
+    <div class="block-list">
+
+      <article class="block-item" data-service="prose">
+        <div class="idx mono">PROSE</div>
+        <div class="block-body">
+          <h3>Prose by tiri</h3>
+          <div class="tagline">for the piece only you can say</div>
+          <p>You have something that needs writing but cannot execute it. Articles, blog posts, product descriptions, ghostwritten pieces.</p>
+        </div>
+        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
+        <div class="info-panel" role="region" aria-label="Prose by tiri details">
+          <div class="moment">"You have something that needs writing but cannot execute it."</div>
+          <div class="includes"><b>Includes</b>Articles, blog posts, product descriptions, ghostwritten pieces.</div>
+          <div class="price">From <b class="price-ksh" data-ksh="4.5 KSh/word" data-usd="$0.12–$0.15/word">…</b></div>
+        </div>
+      </article>
+
+      <article class="block-item" data-service="primer">
+        <div class="idx mono">PRIMER</div>
+        <div class="block-body">
+          <h3>Primer by tiri <span style="font-size:10px; color:var(--orange); font-family:'DM Mono',monospace; letter-spacing:0.06em; vertical-align:middle;">LEAD SERVICE</span></h3>
+          <div class="tagline">for the thing you keep re-explaining</div>
+          <p>I know exactly what I do and how I do it — I just can't get it into something structured that others can follow or learn from.</p>
+        </div>
+        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
+        <div class="info-panel" role="region" aria-label="Primer by tiri details">
+          <div class="moment">"I know exactly what I do and how I do it — I just can't get it into something structured that others can follow or learn from."</div>
+          <div class="includes"><b>Includes</b>Course modules, training guides, curriculum.</div>
+          <div class="price">Base module <b class="price-ksh" data-ksh="12,000 KSh" data-usd="$250–$300">…</b> · 5-module package <b class="price-ksh" data-ksh="55,000 KSh" data-usd="$1,200">…</b></div>
+        </div>
+      </article>
+
+      <article class="block-item" data-service="paperwork">
+        <div class="idx mono">PAPERWORK</div>
+        <div class="block-body">
+          <h3>Paperwork by tiri</h3>
+          <div class="tagline">for the doc nobody wants to write</div>
+          <p>You need a professional document and getting it wrong has real consequences. SLAs, contracts, letters, rate cards, tone of voice guides, brand identity docs, business starter packs.</p>
+        </div>
+        <button class="info-toggle" type="button" aria-expanded="false">See what's included</button>
+        <div class="info-panel" role="region" aria-label="Paperwork by tiri details">
+          <div class="moment">"You need a professional document and getting it wrong has real consequences."</div>
+          <div class="includes"><b>Includes</b>SLAs, contracts, letters, rate cards, tone of voice guides, brand identity docs, business starter packs.</div>
+          <div class="price">From <b class="price-ksh" data-ksh="1,000 KSh" data-usd="$80">…</b> per document</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. PATA CREATIVE STUDIO ===== -->
+<section class="section-pad s-pata" id="pata">
+  <div class="motif-circle" style="width:76px; height:76px; top:26px; left:-30px; background:var(--orange); opacity:0.9;"></div>
+  <div class="motif-circle" style="width:40px; height:40px; bottom:40px; right:8%; background:var(--forest); opacity:0.12;"></div>
+  <div class="wrap">
+    <div class="section-eyebrow" style="color:var(--forest);">02 — PATA CREATIVE STUDIO</div>
+    <h2 class="section-h" style="color:var(--forest);">Prompt. Polish. Produce.</h2>
+    <p class="section-lede" style="color:var(--forest); opacity:0.72;">The product side of tiri — built for people who want the outcome without hiring a writer for every draft.</p>
+
+    <div class="pata-grid">
+      <div class="orb-row">
+        <div class="orb live">
+          <a class="orb-link" href="https://patacreativestudio.gumroad.com" target="_blank" rel="noopener">
+            <div class="name">PataPrompts</div>
+            <div class="status">LIVE ON GUMROAD</div>
+          </a>
+        </div>
+        <div class="orb soon">
+          <div class="name">AI Kiddo</div>
+          <div class="status">IN PROGRESS</div>
+        </div>
+        <div class="orb soon">
+          <div class="name">Prompt Library, Vol. 2</div>
+          <div class="status">COMING</div>
+        </div>
+      </div>
+
+      <div class="signup-card">
+        <h3>Get notified</h3>
+        <p>One email when something new ships from Pata Creative Studio. No noise between.</p>
+
+        <!-- Mailchimp embedded form — replace action URL + u/id fields once Riko confirms the embed code -->
+        <form action="https://tiri.us1.list-manage.com/subscribe/post?u=REPLACE_WITH_U&amp;id=REPLACE_WITH_ID" method="post" target="_blank" class="mc-form" id="mcForm">
+          <label for="mce-EMAIL" style="position:absolute; left:-9999px;">Email address</label>
+          <input type="email" name="EMAIL" id="mce-EMAIL" placeholder="you@email.com" required>
+          <div style="position:absolute; left:-5000px;" aria-hidden="true">
+            <input type="text" name="b_REPLACE_WITH_U_REPLACE_WITH_ID" tabindex="-1" value="">
+          </div>
+          <button type="submit">JOIN →</button>
+        </form>
+        <p class="mc-note">Placeholder Mailchimp embed — swap in the real audience ID once confirmed with Riko.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. PORTFOLIO ===== -->
+<section class="section-pad s-portfolio" id="portfolio">
+  <div class="motif-circle" style="width:130px; height:130px; bottom:-50px; right:-40px; background:var(--butter); opacity:0.7;"></div>
+  <div class="wrap">
+    <div class="section-eyebrow">03 — PORTFOLIO</div>
+    <h2 class="section-h">A shelf for the work itself</h2>
+    <p class="section-lede">Case studies, writing samples and delivered paperwork will live here. Content is pending — placeholders below hold the layout.</p>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track">
+        <div class="carousel" id="carousel">
+          <div class="carousel-card"><div class="idx mono">01</div><div class="thumb"><span>SAMPLE PENDING</span></div><h3>Work sample</h3><p>Placeholder — case study, writing sample or delivered paperwork, TBD with Nat.</p></div>
+          <div class="carousel-card"><div class="idx mono">02</div><div class="thumb"><span>SAMPLE PENDING</span></div><h3>Work sample</h3><p>Placeholder — case study, writing sample or delivered paperwork, TBD with Nat.</p></div>
+          <div class="carousel-card"><div class="idx mono">03</div><div class="thumb"><span>SAMPLE PENDING</span></div><h3>Work sample</h3><p>Placeholder — case study, writing sample or delivered paperwork, TBD with Nat.</p></div>
+          <div class="carousel-card"><div class="idx mono">04</div><div class="thumb"><span>SAMPLE PENDING</span></div><h3>Work sample</h3><p>Placeholder — case study, writing sample or delivered paperwork, TBD with Nat.</p></div>
+          <div class="carousel-card"><div class="idx mono">05</div><div class="thumb"><span>SAMPLE PENDING</span></div><h3>Work sample</h3><p>Placeholder — case study, writing sample or delivered paperwork, TBD with Nat.</p></div>
+        </div>
+      </div>
+      <div class="carousel-hint"><span>→</span> scroll or swipe for more</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG / THOUGHTS ===== -->
+<section class="section-pad s-thoughts" id="thoughts">
+  <div class="wrap">
+    <div class="section-eyebrow">THOUGHTS</div>
+    <h2 class="section-h">Notes from the desk</h2>
+    <p class="section-lede">Short, occasional writing on the work — what's stuck, what got unstuck, and how. More coming soon.</p>
+
+    <div class="thoughts-grid">
+      <article class="thought-card">
+        <div class="tag mono">Writing</div>
+        <h3>Why "I" and not "we"</h3>
+        <p>On keeping a personal brand personal, even once help comes in behind the scenes.</p>
+        <span class="soon">COMING SOON</span>
+      </article>
+      <article class="thought-card">
+        <div class="tag mono">Systems</div>
+        <h3>Turning what you know into something teachable</h3>
+        <p>Notes on the gap between knowing a thing and being able to hand it to someone else.</p>
+        <span class="soon">COMING SOON</span>
+      </article>
+      <article class="thought-card">
+        <div class="tag mono">Process</div>
+        <h3>What "getting it wrong" actually costs</h3>
+        <p>A short piece on paperwork, precision, and why the boring documents matter most.</p>
+        <span class="soon">COMING SOON</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. ABOUT ===== -->
+<section class="section-pad s-about" id="about">
+  <div class="motif-circle" style="width:100px; height:100px; top:-30px; left:calc(50% - 260px); background:var(--butter); opacity:0.12;"></div>
+  <div class="motif-circle" style="width:50px; height:50px; bottom:10px; right:calc(50% - 300px); background:var(--orange); opacity:0.6;"></div>
+  <div class="wrap">
+    <div class="section-eyebrow">04 — ABOUT</div>
+    <h2 class="section-h">Rita Lidaywa</h2>
+    <p class="sub">Rita writes and builds the systems behind tiri — the words, the structure, and the documents that keep a small business (or a stuck idea) moving. She learns it, then she makes it, and she'd rather hand you something finished than something merely started.</p>
+    <div class="about-tag">Think. Try. Teach.</div>
+    <p class="ai-disclosure">I use AI tools to work efficiently — the expertise, judgment, editing, and final quality are mine.</p>
+  </div>
+</section>
+
+<!-- ===== 6. CONTACT ===== -->
+<section class="section-pad s-contact" id="contact">
+  <div class="motif-circle" style="width:46px; height:46px; bottom:16px; right:24px; background:var(--orange); opacity:0.85;"></div>
+  <div class="wrap">
+    <div class="section-eyebrow">05 — CONTACT</div>
+    <h2 class="section-h">Tell me what's stuck</h2>
+
+    <div class="contact-grid">
+      <div class="contact-note">
+        <b>What happens next</b>
+        I read every message myself and reply within 24–72 business hours. No forms disappearing into a queue.
+      </div>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="company" class="contact-form" id="contactForm">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hp"><label>Don't fill this out if you're human: <input name="company"></label></p>
+
+        <div class="field">
+          <label for="name">NAME</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="field">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field">
+          <label for="message">WHAT DO YOU NEED</label>
+          <textarea id="message" name="message" rows="3" required placeholder="A couple of sentences is plenty"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Send it</button>
+        <p class="form-status" id="formStatus" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="s-footer">
+  <span>© 2026 tiri</span>
+  <span class="footer-legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></span>
+  <span>watiri.co</span>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

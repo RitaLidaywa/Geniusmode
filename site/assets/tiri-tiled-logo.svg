@@ -1,0 +1,15 @@
+<svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="180" fill="#F5F0E8"/>
+  <!-- t -->
+  <rect x="30" y="30" width="120" height="120" rx="16" fill="#012F25"/>
+  <text x="90" y="115" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="70" fill="#F5F0E8" text-anchor="middle">t</text>
+  <!-- i -->
+  <rect x="160" y="30" width="120" height="120" rx="16" fill="#FC7D14"/>
+  <text x="220" y="115" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="70" fill="#012F25" text-anchor="middle">i</text>
+  <!-- r -->
+  <rect x="290" y="30" width="120" height="120" rx="16" fill="#012F25"/>
+  <text x="350" y="115" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="70" fill="#F5F0E8" text-anchor="middle">r</text>
+  <!-- i -->
+  <rect x="420" y="30" width="120" height="120" rx="16" fill="#FC7D14"/>
+  <text x="480" y="115" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="70" fill="#012F25" text-anchor="middle">i</text>
+</svg>
