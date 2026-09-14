@@ -489,8 +489,8 @@ html[data-theme="dark"] .theme-toggle .icon-dark { display: inline; }
 .icon-prose,
 .icon-primer,
 .icon-paperwork {
-  background: #012F25;
-  color: #F5F0E8;
+  background: #FAF2A0;
+  color: #012F25;
 }
 
 .service-card h3 {
