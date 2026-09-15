@@ -84,35 +84,41 @@ html,body{
 }
 .theme-toggle:hover{border-color:var(--accent);transform:rotate(15deg);}
 
-.theme-toggle .icon-light{line-height:1;}
+.theme-toggle .icon-light,
 .theme-toggle .icon-dark{
-  display:none;
-  width:12px;height:12px;
-  border-radius:50%;
-  background:var(--ink);
-  box-shadow:4px -3px 0 0 var(--bg);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:20px;height:20px;
+  line-height:1;
 }
+.theme-toggle .icon-dark{display:none;}
 html[data-theme="dark"] .theme-toggle .icon-light{display:none;}
-html[data-theme="dark"] .theme-toggle .icon-dark{display:inline-block;}
+html[data-theme="dark"] .theme-toggle .icon-dark{display:inline-flex;}
 
-/* ---------- Theme toggle beam: radiates outward from center going to
-   night, and the same path in reverse (converging to center) going
-   back to day ---------- */
+/* ---------- Theme toggle beam ----------
+   Each ray pivots at the button's exact center (transform-origin sits
+   on the pivot point, not on the ray's own midpoint), so rotate/scale
+   can't drift off-center. Going to dark, the ray grows outward from
+   that pivot; going back to light, the same keyframes run in reverse
+   so it shrinks back into the pivot. */
 .theme-toggle .ray{
   position:absolute;
   top:50%;left:50%;
-  width:2px;height:9px;
+  width:2px;height:11px;
+  margin:-11px 0 0 -1px;
   border-radius:2px;
   background:var(--accent);
   opacity:0;
   pointer-events:none;
-  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);
+  transform-origin:50% 100%;
+  transform:rotate(var(--angle)) scaleY(0.25);
 }
 
 @keyframes ray-beam{
-  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);}
-  50%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-27px) scaleY(1);}
-  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-40px) scaleY(0.3);}
+  0%   {opacity:0; transform:rotate(var(--angle)) scaleY(0.25);}
+  50%  {opacity:1; transform:rotate(var(--angle)) scaleY(1.7);}
+  100% {opacity:0; transform:rotate(var(--angle)) scaleY(2.5);}
 }
 .theme-toggle.beaming-out .ray{animation:ray-beam 700ms ease-out forwards; animation-delay:calc(var(--i) * 20ms);}
 .theme-toggle.beaming-in .ray{animation:ray-beam 700ms ease-in forwards; animation-delay:calc(var(--i) * 20ms); animation-direction:reverse;}
@@ -274,7 +280,7 @@ h1{
     <div class="links">
       <span>writing</span><span>studio</span><span>journal</span>
       <button class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="icon-light">☀</span><span class="icon-dark"></span>
+        <span class="icon-light">☀</span><span class="icon-dark">☾</span>
       </button>
     </div>
   </nav>
