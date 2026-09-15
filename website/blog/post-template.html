@@ -84,11 +84,20 @@ html,body{
 }
 .theme-toggle:hover{border-color:var(--accent);transform:rotate(15deg);}
 
-.theme-toggle .icon-dark{display:none;}
+.theme-toggle .icon-light{line-height:1;}
+.theme-toggle .icon-dark{
+  display:none;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--ink);
+  box-shadow:4px -3px 0 0 var(--bg);
+}
 html[data-theme="dark"] .theme-toggle .icon-light{display:none;}
-html[data-theme="dark"] .theme-toggle .icon-dark{display:inline;}
+html[data-theme="dark"] .theme-toggle .icon-dark{display:inline-block;}
 
-/* ---------- Theme toggle sunrise / moonrise beam ---------- */
+/* ---------- Theme toggle beam: radiates outward from center going to
+   night, and the same path in reverse (converging to center) going
+   back to day ---------- */
 .theme-toggle .ray{
   position:absolute;
   top:50%;left:50%;
@@ -97,21 +106,16 @@ html[data-theme="dark"] .theme-toggle .icon-dark{display:inline;}
   background:var(--accent);
   opacity:0;
   pointer-events:none;
-  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-16px) scaleY(0.2);
+  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);
 }
 
-@keyframes ray-sunrise{
-  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-14px) scaleY(0.2);}
-  45%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-29px) scaleY(1);}
-  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
+@keyframes ray-beam{
+  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);}
+  50%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-27px) scaleY(1);}
+  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-40px) scaleY(0.3);}
 }
-@keyframes ray-moonrise{
-  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
-  55%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-23px) scaleY(1);}
-  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);}
-}
-.theme-toggle.beaming-out .ray{animation:ray-sunrise 700ms ease-out forwards; animation-delay:calc(var(--i) * 20ms);}
-.theme-toggle.beaming-in .ray{animation:ray-moonrise 700ms ease-in forwards; animation-delay:calc(var(--i) * 20ms);}
+.theme-toggle.beaming-out .ray{animation:ray-beam 700ms ease-out forwards; animation-delay:calc(var(--i) * 20ms);}
+.theme-toggle.beaming-in .ray{animation:ray-beam 700ms ease-in forwards; animation-delay:calc(var(--i) * 20ms); animation-direction:reverse;}
 
 @media (prefers-reduced-motion:reduce){
   .theme-toggle .ray{animation:none !important;}
@@ -270,7 +274,7 @@ h1{
     <div class="links">
       <span>writing</span><span>studio</span><span>journal</span>
       <button class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="icon-light">☀</span><span class="icon-dark">☾</span>
+        <span class="icon-light">☀</span><span class="icon-dark"></span>
       </button>
     </div>
   </nav>
@@ -358,7 +362,7 @@ h1{
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    var beamClass = direction === 'light' ? 'beaming-out' : 'beaming-in';
+    var beamClass = direction === 'dark' ? 'beaming-out' : 'beaming-in';
     toggle.classList.remove('beaming-out', 'beaming-in');
     void toggle.offsetWidth;
     toggle.classList.add(beamClass);
