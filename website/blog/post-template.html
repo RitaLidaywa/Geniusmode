@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post Title Goes Here — tiri</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root{
+  --forest:#012F25;
+  --butter:#FAF2A0;
+  --orange:#FC7D14;
+  --cream:#F5F0E8;
+  --charcoal:#2D2D2D;
+
+  /* light theme (default) */
+  --bg:var(--cream);
+  --page-bg:#FFFFFF;
+  --ink:var(--forest);
+  --body-ink:var(--charcoal);
+  --accent:var(--orange);
+  --spine:var(--forest);
+  --page-edge:rgba(1,47,37,0.15);
+  --rule:rgba(1,47,37,0.16);
+  --shadow:rgba(1,47,37,0.22);
+}
+
+html[data-theme="dark"]{
+  --bg:#081815;
+  --page-bg:#0F2620;
+  --ink:var(--butter);
+  --body-ink:#EDE7DA;
+  --accent:#FFA94D;
+  --spine:#000000;
+  --page-edge:rgba(250,242,160,0.14);
+  --rule:rgba(250,242,160,0.16);
+  --shadow:rgba(0,0,0,0.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html,body{
+  background:var(--bg);
+  color:var(--body-ink);
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  transition:background 0.25s ease, color 0.25s ease;
+}
+
+.outer{padding:36px 16px 90px;}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:860px;
+  margin:0 auto;
+  padding:0 8px 26px;
+}
+.nav .mark{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:20px;
+  color:var(--ink);
+}
+.nav .links{display:flex;align-items:center;font-size:14px;color:var(--ink);opacity:0.75;}
+.nav .links span{margin-left:26px;}
+.nav .links span:first-child{margin-left:0;}
+
+.theme-toggle{
+  position:relative;
+  background:none;
+  border:2px solid var(--rule);
+  border-radius:50%;
+  width:42px;height:42px;
+  margin-left:26px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--ink);
+  font-size:1.1rem;
+  overflow:visible;
+  transition:border-color 0.2s ease, transform 0.2s ease;
+}
+.theme-toggle:hover{border-color:var(--accent);transform:rotate(15deg);}
+
+.theme-toggle .icon-dark{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-light{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-dark{display:inline;}
+
+/* ---------- Theme toggle sunrise / moonrise beam ---------- */
+.theme-toggle .ray{
+  position:absolute;
+  top:50%;left:50%;
+  width:2px;height:9px;
+  border-radius:2px;
+  background:var(--accent);
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-16px) scaleY(0.2);
+}
+
+@keyframes ray-sunrise{
+  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-14px) scaleY(0.2);}
+  45%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-29px) scaleY(1);}
+  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
+}
+@keyframes ray-moonrise{
+  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
+  55%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-23px) scaleY(1);}
+  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);}
+}
+.theme-toggle.beaming-out .ray{animation:ray-sunrise 700ms ease-out forwards; animation-delay:calc(var(--i) * 20ms);}
+.theme-toggle.beaming-in .ray{animation:ray-moonrise 700ms ease-in forwards; animation-delay:calc(var(--i) * 20ms);}
+
+@media (prefers-reduced-motion:reduce){
+  .theme-toggle .ray{animation:none !important;}
+}
+
+/* ================= THE BOOK ================= */
+/* outer-book adds the spine + drop shadow so the whole thing reads as one closed object */
+.book{
+  max-width:860px;
+  margin:0 auto;
+  position:relative;
+  filter:drop-shadow(0 18px 34px var(--shadow));
+}
+
+/* the spine, a solid strip down the left edge like a bound cover */
+.spine{
+  position:absolute;
+  left:0;top:6px;bottom:6px;
+  width:14px;
+  background:var(--spine);
+  border-radius:6px 0 0 6px;
+}
+
+/* stacked page-edge lines on the right, suggesting many leaves of paper */
+.page-edges{
+  position:absolute;
+  right:-6px;top:14px;bottom:14px;
+  width:6px;
+}
+.page-edges span{
+  position:absolute;
+  right:0;top:0;bottom:0;
+  width:1px;
+  background:var(--page-edge);
+}
+.page-edges span:nth-child(1){right:0;}
+.page-edges span:nth-child(2){right:2px;}
+.page-edges span:nth-child(3){right:4px;}
+
+.page{
+  position:relative;
+  margin-left:14px;
+  background:var(--page-bg);
+  border-radius:2px 10px 10px 2px;
+  overflow:hidden;
+}
+
+.top-photo{
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border-bottom:1px solid var(--rule);
+}
+.top-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.top-photo.placeholder{
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg, var(--rule), var(--rule) 12px, transparent 12px, transparent 24px);
+  font-size:13px;color:var(--ink);opacity:0.55;
+}
+
+.content{max-width:600px;margin:0 auto;padding:0 36px;}
+
+.kicker{font-size:13px;color:var(--accent);font-weight:500;margin:34px 0 14px;}
+
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-optical-sizing:auto;
+  font-size:clamp(28px,4.4vw,42px);
+  line-height:1.14;
+  letter-spacing:-0.3px;
+  color:var(--ink);
+  max-width:19ch;
+}
+
+.byline{
+  display:flex;align-items:center;flex-wrap:wrap;
+  margin:20px 0 6px;
+  font-size:14px;color:var(--body-ink);opacity:0.75;
+}
+.byline > *{margin-right:14px;}
+.byline .dot{width:4px;height:4px;border-radius:50%;background:var(--body-ink);opacity:0.5;flex-shrink:0;}
+
+.spread{position:relative;margin-top:30px;}
+
+.body-copy{position:relative;font-size:17px;line-height:1.75;color:var(--body-ink);}
+.body-copy p{margin-bottom:22px;}
+.body-copy p:first-of-type::first-letter{
+  font-family:'Fraunces',serif;font-weight:600;font-size:60px;line-height:0.78;
+  float:left;padding:5px 8px 0 0;color:var(--ink);
+}
+
+.pull{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+  font-size:23px;line-height:1.42;color:var(--accent);
+  margin:8px 0 26px;padding-left:18px;border-left:2px solid var(--accent);
+}
+
+.mid-photo{margin:6px 0 24px;}
+.mid-photo img{width:100%;display:block;border:1px solid var(--rule);}
+.mid-photo.placeholder{
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg, var(--rule), var(--rule) 10px, transparent 10px, transparent 20px);
+  border:1px solid var(--rule);font-size:12px;color:var(--ink);opacity:0.55;text-align:center;padding:8px;
+}
+.mid-photo figcaption{font-size:12px;color:var(--ink);opacity:0.6;margin-top:6px;}
+
+.signoff{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--ink);margin-top:8px;}
+
+.reach-out{
+  font-size:13.5px;
+  color:var(--body-ink);
+  opacity:0.65;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--rule);
+}
+.reach-out a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;}
+.reach-out a:hover{opacity:0.8;}
+
+.foot{
+  margin:0;
+  padding:24px 36px 40px;
+  border-top:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;
+}
+.foot .pillar{font-size:13px;color:var(--ink);opacity:0.75;}
+.foot .pillar b{opacity:1;font-weight:600;}
+.foot .actions{display:flex;gap:32px;}
+.foot .actions button{margin-left:0;}
+.foot .actions button{
+  all:unset;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);
+  padding-bottom:2px;border-bottom:1px solid transparent;transition:border-color 0.15s ease;
+}
+.foot .actions button:hover{border-bottom-color:var(--accent);color:var(--accent);}
+
+@media (max-width:640px){
+  .outer{padding:20px 10px 60px;}
+  .content{padding:0 20px;}
+  .spine{width:9px;}
+  .page{margin-left:9px;}
+  .page-edges{right:-4px;width:4px;}
+  .body-copy{font-size:15.5px;line-height:1.68;}
+  .body-copy p:first-of-type::first-letter{font-size:44px;}
+  .pull{font-size:19px;}
+  .foot{padding:20px 20px 32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="outer">
+
+  <nav class="nav">
+    <div class="mark">tiri</div>
+    <div class="links">
+      <span>writing</span><span>studio</span><span>journal</span>
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-light">☀</span><span class="icon-dark">☾</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="book">
+    <div class="spine"></div>
+    <div class="page-edges"><span></span><span></span><span></span></div>
+
+    <div class="page">
+
+      <div class="top-photo placeholder">top photo — 16:9, replace this slot</div>
+
+      <div class="content">
+
+        <div class="kicker">journal label goes here</div>
+        <h1>Post Headline Goes Here</h1>
+
+        <div class="byline">
+          <span>Watiri, tiri</span>
+          <span class="dot"></span>
+          <span>series name</span>
+          <span class="dot"></span>
+          <span>X min read</span>
+        </div>
+
+        <div class="spread">
+          <div class="body-copy">
+
+            <p>Opening paragraph. The first letter gets the drop cap automatically since this is the first paragraph in the body.</p>
+
+            <p>Second paragraph, continuing the piece straight down the page.</p>
+
+            <div class="pull">A pull quote goes here, sitting within the single column so it reads like a real quote rather than a banner across the page.</div>
+
+            <p>More body text continues here after the pull quote.</p>
+
+            <figure class="mid-photo placeholder">small photo — roughly 4:3, replace this slot
+              <figcaption>Optional caption</figcaption>
+            </figure>
+
+            <p>Closing paragraphs bring the piece to an end.</p>
+
+            <p class="signoff">Watiri</p>
+
+            <p class="reach-out">Have thoughts on this one? <a href="mailto:watiriwriter@gmail.com">Email me</a>, I read everything that comes in.</p>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="foot">
+        <div class="pillar">Part of <b>series name</b> — a running note.</div>
+        <div class="actions"><button>Save</button><button>Share</button></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  function readStoredTheme() {
+    try { return localStorage.getItem('tiri-theme'); } catch (e) { return null; }
+  }
+  function writeStoredTheme(theme) {
+    try { localStorage.setItem('tiri-theme', theme); } catch (e) {}
+  }
+
+  var RAY_COUNT = 8;
+
+  function buildRays(toggle) {
+    for (var i = 0; i < RAY_COUNT; i++) {
+      var ray = document.createElement('span');
+      ray.className = 'ray';
+      ray.style.setProperty('--angle', (i * (360 / RAY_COUNT)) + 'deg');
+      ray.style.setProperty('--i', i);
+      toggle.appendChild(ray);
+    }
+  }
+
+  function playBeam(toggle, direction) {
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    var beamClass = direction === 'light' ? 'beaming-out' : 'beaming-in';
+    toggle.classList.remove('beaming-out', 'beaming-in');
+    void toggle.offsetWidth;
+    toggle.classList.add(beamClass);
+    setTimeout(function () {
+      toggle.classList.remove(beamClass);
+    }, 900);
+  }
+
+  function initTheme() {
+    var root = document.documentElement;
+    var toggle = document.querySelector('.theme-toggle');
+    var theme = readStoredTheme() === 'dark' ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+
+    if (toggle) {
+      buildRays(toggle);
+      toggle.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        writeStoredTheme(next);
+        playBeam(toggle, next);
+      });
+    }
+  }
+
+  initTheme();
+})();
+</script>
+</body>
+</html>

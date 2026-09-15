@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal — tiri</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root{
+  --forest:#012F25;
+  --butter:#FAF2A0;
+  --orange:#FC7D14;
+  --cream:#F5F0E8;
+  --charcoal:#2D2D2D;
+
+  --bg:var(--cream);
+  --page-bg:#FFFFFF;
+  --ink:var(--forest);
+  --body-ink:var(--charcoal);
+  --accent:var(--orange);
+  --spine:var(--forest);
+  --page-edge:rgba(1,47,37,0.15);
+  --rule:rgba(1,47,37,0.16);
+  --shadow:rgba(1,47,37,0.22);
+}
+html[data-theme="dark"]{
+  --bg:#081815;
+  --page-bg:#0F2620;
+  --ink:var(--butter);
+  --body-ink:#EDE7DA;
+  --accent:#FFA94D;
+  --spine:#000000;
+  --page-edge:rgba(250,242,160,0.14);
+  --rule:rgba(250,242,160,0.16);
+  --shadow:rgba(0,0,0,0.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);color:var(--body-ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;transition:background 0.25s ease, color 0.25s ease;}
+.outer{padding:36px 16px 100px;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;max-width:860px;margin:0 auto;padding:0 8px 26px;}
+.nav .mark{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--ink);}
+.nav .links{display:flex;align-items:center;font-size:14px;color:var(--ink);opacity:0.75;}
+.nav .links span{margin-left:26px;}
+.nav .links span:first-child{margin-left:0;}
+.nav .links span.active{opacity:1;border-bottom:1px solid var(--accent);color:var(--accent);}
+.theme-toggle{
+  position:relative;
+  background:none;
+  border:2px solid var(--rule);
+  border-radius:50%;
+  width:42px;height:42px;
+  margin-left:26px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--ink);
+  font-size:1.1rem;
+  overflow:visible;
+  transition:border-color 0.2s ease, transform 0.2s ease;
+}
+.theme-toggle:hover{border-color:var(--accent);transform:rotate(15deg);}
+
+.theme-toggle .icon-dark{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-light{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-dark{display:inline;}
+
+.theme-toggle .ray{
+  position:absolute;top:50%;left:50%;width:2px;height:9px;border-radius:2px;
+  background:var(--accent);opacity:0;pointer-events:none;
+  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-16px) scaleY(0.2);
+}
+@keyframes ray-sunrise{
+  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-14px) scaleY(0.2);}
+  45%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-29px) scaleY(1);}
+  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
+}
+@keyframes ray-moonrise{
+  0%   {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-38px) scaleY(0.3);}
+  55%  {opacity:1; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-23px) scaleY(1);}
+  100% {opacity:0; transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-10px) scaleY(0.2);}
+}
+.theme-toggle.beaming-out .ray{animation:ray-sunrise 700ms ease-out forwards; animation-delay:calc(var(--i) * 20ms);}
+.theme-toggle.beaming-in .ray{animation:ray-moonrise 700ms ease-in forwards; animation-delay:calc(var(--i) * 20ms);}
+@media (prefers-reduced-motion:reduce){.theme-toggle .ray{animation:none !important;}}
+
+.book{max-width:860px;margin:0 auto;position:relative;filter:drop-shadow(0 18px 34px var(--shadow));}
+.spine{position:absolute;left:0;top:6px;bottom:6px;width:14px;background:var(--spine);border-radius:6px 0 0 6px;}
+.page-edges{position:absolute;right:-6px;top:14px;bottom:14px;width:6px;}
+.page-edges span{position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--page-edge);}
+.page-edges span:nth-child(2){right:2px;}
+.page-edges span:nth-child(3){right:4px;}
+.page{position:relative;margin-left:14px;background:var(--page-bg);border-radius:2px 10px 10px 2px;padding:48px 40px 20px;}
+
+.intro h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(28px,4.4vw,40px);color:var(--ink);margin-bottom:10px;}
+.intro p{font-size:15.5px;color:var(--body-ink);opacity:0.8;max-width:52ch;line-height:1.6;}
+
+.entries{margin-top:40px;display:flex;flex-direction:column;}
+.entry{
+  display:grid;grid-template-columns:180px 1fr;gap:24px;padding:26px 0;
+  border-top:1px solid var(--rule);text-decoration:none;color:inherit;
+}
+.entries .entry:last-child{border-bottom:1px solid var(--rule);}
+.entry .thumb{aspect-ratio:4/3;border:1px solid var(--rule);overflow:hidden;}
+.entry .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.entry .thumb.placeholder{
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg, var(--rule), var(--rule) 10px, transparent 10px, transparent 20px);
+  font-size:11px;color:var(--ink);opacity:0.5;text-align:center;padding:6px;
+}
+.entry .meta{font-size:12.5px;color:var(--accent);font-weight:500;margin-bottom:8px;}
+.entry h2{font-family:'Fraunces',serif;font-weight:600;font-size:21px;line-height:1.28;color:var(--ink);margin-bottom:8px;}
+.entry p.excerpt{font-size:14.5px;line-height:1.6;color:var(--body-ink);opacity:0.82;max-width:60ch;}
+.entry .date{display:block;margin-top:10px;font-size:12.5px;color:var(--body-ink);opacity:0.55;}
+
+@media (max-width:600px){
+  .spine{width:9px;}
+  .page{margin-left:9px;padding:36px 20px 16px;}
+  .entry{grid-template-columns:96px 1fr;gap:14px;}
+  .entry h2{font-size:18px;}
+}
+</style>
+</head>
+<body>
+<div class="outer">
+
+  <nav class="nav">
+    <div class="mark">tiri</div>
+    <div class="links">
+      <span>writing</span><span>studio</span><span class="active">journal</span>
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-light">☀</span><span class="icon-dark">☾</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="book">
+    <div class="spine"></div>
+    <div class="page-edges"><span></span><span></span><span></span></div>
+
+    <div class="page">
+
+      <div class="intro">
+        <h1>Journal</h1>
+        <p>Notes from the work. Things found by accident, kept because they were worth keeping.</p>
+      </div>
+
+      <div class="entries">
+        <a class="entry" href="post-template-v2.html">
+          <div class="thumb placeholder">thumb</div>
+          <div>
+            <div class="meta">what I learned while working</div>
+            <h2>The Rings Are Thinner Than A Road Is Wide</h2>
+            <p class="excerpt">A short note on Saturn's rings, found while checking a fact for a client piece, and kept because it was worth keeping.</p>
+            <span class="date">Month Day, Year</span>
+          </div>
+        </a>
+        <!-- duplicate the block above for each new post -->
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  function readStoredTheme() {
+    try { return localStorage.getItem('tiri-theme'); } catch (e) { return null; }
+  }
+  function writeStoredTheme(theme) {
+    try { localStorage.setItem('tiri-theme', theme); } catch (e) {}
+  }
+
+  var RAY_COUNT = 8;
+
+  function buildRays(toggle) {
+    for (var i = 0; i < RAY_COUNT; i++) {
+      var ray = document.createElement('span');
+      ray.className = 'ray';
+      ray.style.setProperty('--angle', (i * (360 / RAY_COUNT)) + 'deg');
+      ray.style.setProperty('--i', i);
+      toggle.appendChild(ray);
+    }
+  }
+
+  function playBeam(toggle, direction) {
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    var beamClass = direction === 'light' ? 'beaming-out' : 'beaming-in';
+    toggle.classList.remove('beaming-out', 'beaming-in');
+    void toggle.offsetWidth;
+    toggle.classList.add(beamClass);
+    setTimeout(function () {
+      toggle.classList.remove(beamClass);
+    }, 900);
+  }
+
+  function initTheme() {
+    var root = document.documentElement;
+    var toggle = document.querySelector('.theme-toggle');
+    var theme = readStoredTheme() === 'dark' ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+
+    if (toggle) {
+      buildRays(toggle);
+      toggle.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        writeStoredTheme(next);
+        playBeam(toggle, next);
+      });
+    }
+  }
+
+  initTheme();
+})();
+</script>
+</body>
+</html>
