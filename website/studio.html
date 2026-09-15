@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pata Creative Studio — Tiri</title>
+<meta name="description" content="Pata Creative Studio is where Tiri builds and ships AI-built digital products: PataPrompts, AI Kiddo, and Studio Toolkits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Tiri<span>.</span></a>
+    <ul class="nav-links">
+      <li class="nav-item has-dropdown">
+        <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <span class="chevron"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="prose.html">Prose by tiri<small>Personal essays &amp; brand writing</small></a></li>
+          <li><a href="primer.html">Primer by tiri<small>Guides, courses &amp; explainers</small></a></li>
+          <li><a href="paperwork.html">Paperwork by tiri<small>SOPs, policies &amp; contracts</small></a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-dropdown">
+        <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Pata Studio <span class="chevron"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="studio.html#pataprompts">PataPrompts<small>Prompt libraries on Gumroad</small></a></li>
+          <li><a href="studio.html#ai-kiddo">AI Kiddo<small>AI literacy for kids, coming soon</small></a></li>
+          <li><a href="studio.html#toolkits">Studio Toolkits<small>Small tools, coming soon</small></a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-light">&#9788;</span>
+        <span class="icon-dark">&#9789;</span>
+      </button>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="service-hero container">
+  <p class="eyebrow">Pata Creative Studio</p>
+  <h1>AI-built products, made to be used, not just admired.</h1>
+  <p style="margin-top:20px; max-width:640px; margin-inline:auto; opacity:0.85;">Pata Creative Studio is where I build and ship digital products: prompt packs, toolkits, and small AI-built tools designed to solve one problem well. Everything here is tested on real work before it goes out the door.</p>
+</header>
+
+<section class="container fade-in">
+  <div class="product-grid">
+    <div class="product-card">
+      <span class="badge badge-live" id="pataprompts">Available now</span>
+      <h3>PataPrompts</h3>
+      <p>Prompt libraries built for specific work, not generic inspiration. Each pack is tested against real tasks before it's listed, from bedtime stories to business writing.</p>
+      <a href="https://patapromptsstudio.gumroad.com" target="_blank" rel="noopener" class="btn btn-outline">View on Gumroad</a>
+    </div>
+    <div class="product-card">
+      <span class="badge badge-soon" id="ai-kiddo">Coming soon</span>
+      <h3>AI Kiddo</h3>
+      <p>AI literacy tools built for kids and the adults teaching them. Simple, safe, screen-time-conscious activities that teach how AI actually works.</p>
+      <a href="index.html#contact" class="btn btn-outline">Get notified at launch</a>
+    </div>
+    <div class="product-card">
+      <span class="badge badge-soon" id="toolkits">Coming soon</span>
+      <h3>Studio Toolkits</h3>
+      <p>Templates and small tools built to remove one specific bottleneck in your workflow, from content calendars to client onboarding kits.</p>
+      <a href="index.html#contact" class="btn btn-outline">Get notified at launch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <a href="index.html" class="logo">Tiri<span>.</span></a>
+      <p class="footer-note">&copy; <span id="year"></span> Tiri by Rita. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="prose.html">Prose</a></li>
+      <li><a href="primer.html">Primer</a></li>
+      <li><a href="paperwork.html">Paperwork</a></li>
+      <li><a href="studio.html">Pata Studio</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top">&#8593;</button>
+
+<script src="js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
